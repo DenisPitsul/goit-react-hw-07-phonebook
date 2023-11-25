@@ -1,8 +1,8 @@
 import classes from './ContactForm.module.css'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
-import { addContact } from 'redux/contactsSlice'
-import { getContacts } from 'redux/selectors'
+import { addContact } from 'redux/operations'
+import { selectContacts } from 'redux/selectors'
 import {object, string} from 'yup'
 
 const schema = object().shape({
@@ -13,7 +13,7 @@ const schema = object().shape({
 })
 
 const ContactForm = () => {
-    const contacts = useSelector(getContacts)
+    const contacts = useSelector(selectContacts)
     const dispatch = useDispatch()
 
     const onAdd = (newContact) => {
@@ -25,7 +25,7 @@ const ContactForm = () => {
           return;
         }
       
-        dispatch(addContact(newContact.name, newContact.number))
+        dispatch(addContact({name: newContact.name, phone: newContact.number}))
     }
 
     return (
